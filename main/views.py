@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import AirPollution
 
 
 def master(request):
-    return render(request, 'main/master.html')
+    air_pollutions = AirPollution.objects.all()
+    return render(request, 'main/master.html', {'data': 'Питер', 'air_pollutions': air_pollutions})
