@@ -12,22 +12,23 @@
                 center: [55.76, 37.64],
                 zoom: 7
             });
-           var address = '{{ data }}';
-           var geocoder = ymaps.geocode(address);
-           geocoder.then(
-               function (res) {
+                var data = "{{ rel_air_pollutions }}";
+                var data1 = JSON.parse(data.replace(/&quot;/g,'"'));
+                var address = data1[0]["fields"]["LocationRel"];
+                var geocoder = ymaps.geocode(address);
+                geocoder.then(
+                function (res) {
                    var coordinates = res.geoObjects.get(0).geometry.getCoordinates();
                    var placemark = new ymaps.Placemark(
-                coordinates, {
+                   coordinates, {
                     'hintContent': address
-                }, {
+                   }, {
                     'preset': 'islands#redDotIcon'
+                   }
+                   );
+                myMap.geoObjects.add(placemark);
                 }
-            );
-
-            myMap.geoObjects.add(placemark);
-        }
-    );
+                );
 
 }
 </script>
