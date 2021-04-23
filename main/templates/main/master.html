@@ -10,31 +10,51 @@
         function init(){
             var myMap = new ymaps.Map("map", {
                 center: [55.76, 37.64],
-                zoom: 7
+                zoom: 10
             });
-                var data = "{{ rel_air_pollutions }}";
-                var data1 = JSON.parse(data.replace(/&quot;/g,'"'));
-                var address = data1[0]["fields"]["LocationRel"];
-                var geocoder = ymaps.geocode(address);
+            var rap = "{{ rel_air_pollutions }}";
+            var rel_air_pollutions = JSON.parse(rap.replace(/&quot;/g,'"'));
+            var ad = "{{ air_districts }}";
+            var air_districts = JSON.parse(ad.replace(/&quot;/g,'"'));
+            for (let i = 0; i < 46; i++) {
+                var geocoder = ymaps.geocode(air_districts[i]["fields"]["Address"]);
                 geocoder.then(
-                function (res) {
-                   var coordinates = res.geoObjects.get(0).geometry.getCoordinates();
-                   var placemark = new ymaps.Placemark(
-                   coordinates, {
-                    'hintContent': address
-                   }, {
-                    'preset': 'islands#redDotIcon'
-                   }
-                   );
-                myMap.geoObjects.add(placemark);
-                }
+                    function (res) {
+                        if (air_districts[i]["fields"]["AirCharacteristic"] == "Средний"){
+                            fcolor = "#FFFF00";
+                            scolor = "#F0E68C";
+                            bcontent = "хуй";
+                        }
+                        else if (air_districts[i]["fields"]["AirCharacteristic"] == "Высокий"){
+                            fcolor = "#FF0000";
+                            scolor = "#FA8072";
+                            bcontent = "хуй";
+                        }
+                        else {
+                            fcolor = "#00FF7F";
+                            scolor = "#008000";
+                            bcontent = "Все показатели удовлетворяют ПДК и рекомендациям ВОЗ";
+                        }
+                        var coordinates = res.geoObjects.get(0).geometry.getCoordinates();
+                        myMap.geoObjects.add(new ymaps.Circle([coordinates, 650], {
+                            balloonContent: bcontent,
+                            hintContent: air_districts[i]["fields"]["Address"]
+                        }, {
+                            fillColor: fcolor,
+                            // Цвет обводки.
+                            strokeColor: scolor,
+                            // Прозрачность обводки.
+                            strokeOpacity: 0.8,
+                            // Ширина обводки в пикселях.
+                            strokeWidth: 5
+                        }));
+                    }
                 );
+            }
 
 }
 </script>
 {% endblock %}
-{% block content %}
-<div id="map" style="width: 100vw; height:100vh"></div>
-{% endblock %}
+
 
 

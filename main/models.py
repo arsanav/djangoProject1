@@ -31,9 +31,17 @@ class AirDistricts(models.Model):
         verbose_name = 'Характеристика районов'
         verbose_name_plural = 'Характеристика районов'
 
+    def as_json(self):
+        return dict(
+            id=self.id,
+            District=self.District,
+            Address=self.Address,
+            AirCharacteristic=self.AirCharacteristic)
+
 
 class AirComponentsInfluence(models.Model):
     Component = models.CharField('Компонент', max_length=100)
+    DangerType = models.CharField('Класс опасности', max_length=1)
     InfluenceLevel = models.CharField('Уровень влияния', max_length=50)
     Outcome = models.TextField('Последствия')
 
