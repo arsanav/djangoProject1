@@ -5,55 +5,170 @@
 {% endblock %}
 
 {% block scr %}
+ <script src="https://api-maps.yandex.ru/2.1/?apikey=8be5d99a-0f7a-49f3-b2e0-07b924f5521b&lang=ru_RU" type="text/javascript">
+ </script>
 <script type="text/javascript">
         ymaps.ready(init);
+        function data_master(dist, pol, inf, iff, pdk){
+            var content = "Повышенное содержание: ";
+             for (let m = 0; m < 330; m++) {
+                 if (dist == pol[m]["fields"]["DistrictRel"]) {
+                     for (let j = 0; j < 14; j++) {
+                         if (pol[m]["fields"]["ParameterRel"] == pdk[j]["fields"]["ParameterName"]
+                             && pol[m]["fields"]["MonthlyAveragePDKssRel"] > pdk[j]["fields"]["PDKss"]) {
+                             for (let k = 0; k < 1; k++) {
+                                 if (pdk[j]["fields"]["ParameterName"] == inf[k]["fields"]["Component"]
+                                     && inf[k]["fields"]["InfluenceLevel"] == iff) {
+                                     content += pdk[j]["fields"]["ParameterName"] + ": ";
+                                     content += inf[k]["fields"]["Outcome"];
+                                 }
+                             }
+                         }
+                     }
+                 }
+             }
+             return content;
+        }
         function init(){
             var myMap = new ymaps.Map("map", {
                 center: [55.76, 37.64],
                 zoom: 10
-            });
-            var rap = "{{ rel_air_pollutions }}";
-            var rel_air_pollutions = JSON.parse(rap.replace(/&quot;/g,'"'));
-            var ad = "{{ air_districts }}";
-            var air_districts = JSON.parse(ad.replace(/&quot;/g,'"'));
-            for (let i = 0; i < 46; i++) {
-                var geocoder = ymaps.geocode(air_districts[i]["fields"]["Address"]);
-                geocoder.then(
-                    function (res) {
-                        if (air_districts[i]["fields"]["AirCharacteristic"] == "Средний"){
-                            fcolor = "#FFFF00";
-                            scolor = "#F0E68C";
-                            bcontent = "хуй";
-                        }
-                        else if (air_districts[i]["fields"]["AirCharacteristic"] == "Высокий"){
-                            fcolor = "#FF0000";
-                            scolor = "#FA8072";
-                            bcontent = "хуй";
-                        }
-                        else {
-                            fcolor = "#00FF7F";
-                            scolor = "#008000";
-                            bcontent = "Все показатели удовлетворяют ПДК и рекомендациям ВОЗ";
-                        }
-                        var coordinates = res.geoObjects.get(0).geometry.getCoordinates();
-                        myMap.geoObjects.add(new ymaps.Circle([coordinates, 650], {
-                            balloonContent: bcontent,
-                            hintContent: air_districts[i]["fields"]["Address"]
-                        }, {
-                            fillColor: fcolor,
-                            // Цвет обводки.
-                            strokeColor: scolor,
-                            // Прозрачность обводки.
-                            strokeOpacity: 0.8,
-                            // Ширина обводки в пикселях.
-                            strokeWidth: 5
-                        }));
-                    }
-                );
-            }
+        });
+        var rap = "{{ rel_air_pollutions }}";
+        var rel_air_pollutions = JSON.parse(rap.replace(/&quot;/g,'"'));
+        var ad = "{{ air_districts }}";
+        var air_districts = JSON.parse(ad.replace(/&quot;/g,'"'));
+        var ap = "{{ air_pdk }}";
+        var air_pdk = JSON.parse(ap.replace(/&quot;/g,'"'));
+        var aci = "{{ air_components_influence }}";
+        var air_components_influence = JSON.parse(aci.replace(/&quot;/g,'"'));
+        var sc = "{{ spring_conditions }}";
+        var spring_conditions = JSON.parse(sc.replace(/&quot;/g,'"'));
+        for (let i = 0; i < 46; i++) {
+             var geocoder = ymaps.geocode(air_districts[i]["fields"]["Address"]);
+             geocoder.then(
+                 function (res) {
+                     if (air_districts[i]["fields"]["AirCharacteristic"] == "Средний") {
+                         fcolor = "#FFFF00";
+                         scolor = "#F0E68C";
+                         bcontent = data_master(air_districts[i]["fields"]["District"],
+                                                rel_air_pollutions, air_components_influence,
+                                                "Средний", air_pdk);
 
+                     }
+                     else if (air_districts[i]["fields"]["AirCharacteristic"] == "Высокий"){
+                         fcolor = "#FF0000";
+                         scolor = "#FA8072";
+                     }
+                     else {
+                         fcolor = "#00FF7F";
+                         scolor = "#008000";
+                         bcontent = "Все показатели удовлетворяют ПДК и рекомендациям ВОЗ";
+                     }
+                     var coordinates = res.geoObjects.get(0).geometry.getCoordinates();
+                     myMap.geoObjects.add(new ymaps.Circle([coordinates, 650], {
+                         balloonContent: bcontent,
+                         hintContent: air_districts[i]["fields"]["Address"]
+                     }, {
+                         fillColor: fcolor,
+                         // Цвет обводки.
+                         strokeColor: scolor,
+                         // Прозрачность обводки.
+                         strokeOpacity: 0.8,
+                         // Ширина обводки в пикселях.
+                         strokeWidth: 5
+                     }));
+                 }
+             );
+        }
+        var myMap1 = new ymaps.Map('map1', {
+            center: [55.76, 37.64],
+            zoom: 10
+        });
+        for (let i = 0; i < 172; i++) {
+            if (spring_conditions[i]["fields"]["Condition"] == "По отдельным химическим веществам выявлены превышения нормативов качества") {
+                fcolor = "#FFFF00";
+                scolor = "#F0E68C";
+            }
+            else {
+                 fcolor = "#00FF7F";
+                 scolor = "#008000";
+            }
+            hint = spring_conditions[i]["fields"]["SpringName"] + "|" + spring_conditions[i]["fields"]["Location"];
+            myMap1.geoObjects.add(new ymaps.Circle([
+                [spring_conditions[i]["fields"]["Latitude"], spring_conditions[i]["fields"]["Longitude"]],
+                650
+            ], {
+                balloonContent: spring_conditions[i]["fields"]["Condition"],
+                hintContent: hint,
+            }, {
+                fillColor: fcolor,
+                // Цвет обводки.
+                strokeColor: scolor,
+                // Прозрачность обводки.
+                strokeOpacity: 0.8,
+                // Ширина обводки в пикселях.
+                strokeWidth: 5
+            }));
+
+        }
 }
 </script>
+{% endblock %}
+
+{% block content %}
+<div class="v50_11">
+    <div class="v6_11">
+        <div class="v8_119">
+            <div class="v8_88">
+                <div class="v8_89">
+                    <div class="v8_90"></div>
+                    <div class="v8_91"></div>
+                    <div class="v8_92"></div>
+                    <div class="v8_93">
+                        <div class="v8_94"></div></div>
+                    <div class="v8_95">
+                        <div class="v8_96"></div></div>
+                    <div class="v8_97">
+                        <div class="v8_98"></div></div>
+                    <div class="v8_99">
+                        <div class="v8_100"></div></div>
+                    <div class="v8_101">
+                        <div class="v8_102"></div></div>
+                    <div class="v8_103">
+                        <div class="v8_104"></div></div>
+                    <div class="v8_105">
+                        <div class="v8_106"></div></div>
+                    <div class="v8_107">
+                        <div class="v8_108"></div></div>
+                    <div class="v8_109">
+                        <div class="v8_110"></div></div>
+                    <div class="v8_111">
+                        <div class="v8_112"></div></div></div></div>
+            <span class="v8_118">EcoKarta</span></div>
+        <div class="v8_124">
+            <span class="v8_120">Главная</span>
+            <span class="v8_121" onclick="location.href='maps/';">Карта</span>
+            <span class="v8_122">О сервисе</span>
+            <span class="v8_123">Контакты</span></div>
+        <div class="v8_126">
+            <span class="v7_9">Карта здоровья твоего города</span>
+            <span class="v7_10">Мы поможем тебе узнать экологическое состояние Москвы</span>
+            <div class="v8_127">
+                <div class="v8_9">
+                    <div class="v7_15"></div>
+                    <span class="v7_16">Хочу знать!</span></div></div></div>
+        <div class="v8_176">
+            <div class="v8_147">
+                </div>
+            <div class="v8_152"></div>
+            <div class="v8_155">
+                <div class="v8_156"></div>
+                <div class="v8_157"></div></div></div>
+        <div class="v8_133"></div>
+        </div></div>
+<div id="map" class="div1"></div>
+<div id="map1" class="div2"></div>
 {% endblock %}
 
 

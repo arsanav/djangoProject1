@@ -24,6 +24,26 @@ body {
   left: 0px;
   overflow: hidden;
 }
+.v6_12 {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(rgba(223,255,205,1), rgba(144,249,196,1));
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.v50_12 {
+  width: 100%;
+  height: 20px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
 .v8_119 {
   width: 262px;
   height: 52px;
@@ -726,10 +746,20 @@ body {
 }
 .div1{
   width: 100%;
-  height: 1024px;
+  height: 600px;
   opacity: 1;
   position: absolute;
-  top: 0px;
+  top: 1024px;
   left: 0px;
   overflow: hidden;
 }
+.div2{
+  width: 100%;
+  height: 600px;
+  opacity: 1;
+  position: absolute;
+  top: 1624px;
+  left: 0px;
+  overflow: hidden;
+}
+

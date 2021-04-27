@@ -7,64 +7,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=8be5d99a-0f7a-49f3-b2e0-07b924f5521b&lang=ru_RU" type="text/javascript">
-    </script>
     {% block scr %}{% endblock %}
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
     <link href="{% static 'css/main.css '%}" rel="stylesheet" />
-    <title>Document</title>
 </head>
 <body>
-<div class="v50_11">
-    <div class="v6_11">
-        <div class="v8_119">
-            <div class="v8_88">
-                <div class="v8_89">
-                    <div class="v8_90"></div>
-                    <div class="v8_91"></div>
-                    <div class="v8_92"></div>
-                    <div class="v8_93">
-                        <div class="v8_94"></div></div>
-                    <div class="v8_95">
-                        <div class="v8_96"></div></div>
-                    <div class="v8_97">
-                        <div class="v8_98"></div></div>
-                    <div class="v8_99">
-                        <div class="v8_100"></div></div>
-                    <div class="v8_101">
-                        <div class="v8_102"></div></div>
-                    <div class="v8_103">
-                        <div class="v8_104"></div></div>
-                    <div class="v8_105">
-                        <div class="v8_106"></div></div>
-                    <div class="v8_107">
-                        <div class="v8_108"></div></div>
-                    <div class="v8_109">
-                        <div class="v8_110"></div></div>
-                    <div class="v8_111">
-                        <div class="v8_112"></div></div></div></div>
-            <span class="v8_118">EcoKarta</span></div>
-        <div class="v8_124">
-            <span class="v8_120">Главная</span>
-            <span class="v8_121">Карта</span>
-            <span class="v8_122">О сервисе</span>
-            <span class="v8_123">Контакты</span></div>
-        <div class="v8_126">
-            <span class="v7_9">Карта здоровья твоего города</span>
-            <span class="v7_10">Мы поможем тебе узнать экологическое состояние Москвы</span>
-            <div class="v8_127">
-                <div class="v8_9">
-                    <div class="v7_15"></div>
-                    <span class="v7_16">Хочу знать!</span></div></div></div>
-        <div class="v8_176">
-            <div class="v8_147">
-                </div>
-            <div class="v8_152"></div>
-            <div class="v8_155">
-                <div class="v8_156"></div>
-                <div class="v8_157"></div></div></div>
-        <div class="v8_133"></div>
-        </div></div>
-<div id="map" class="div1"></div>
+{% block content %}{% endblock %}
 </body>
 </html>

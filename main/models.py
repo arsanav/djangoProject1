@@ -18,10 +18,21 @@ class AirPDK(models.Model):
         verbose_name = 'ПДК'
         verbose_name_plural = 'ПДК'
 
+    def as_json(self):
+        return dict(
+            id=self.id,
+            ParameterName=self.ParameterName,
+            global_id=self.global_id,
+            UnitOfMeasure=self.UnitOfMeasure,
+            PDKmr_ASIL=self.PDKmr_ASIL,
+            PDKss=self.PDKss,
+            DangerClass=self.DangerClass)
+
 
 class AirDistricts(models.Model):
     District = models.CharField('Район', max_length=100)
     Address = models.CharField('Адрес', max_length=500)
+    # Type = models.CharField('Критерий', max_length=50, default='Воздух')
     AirCharacteristic = models.CharField('Уровень влияния', max_length=50)
 
     def __str__(self):
@@ -36,6 +47,7 @@ class AirDistricts(models.Model):
             id=self.id,
             District=self.District,
             Address=self.Address,
+            Criterion = self.Criterion,
             AirCharacteristic=self.AirCharacteristic)
 
 
@@ -45,12 +57,22 @@ class AirComponentsInfluence(models.Model):
     InfluenceLevel = models.CharField('Уровень влияния', max_length=50)
     Outcome = models.TextField('Последствия')
 
+    # Component = models.ForeignKey(AirPDK, on_delete=models.CASCADE())
+
     def __str__(self):
         return self.Component
 
     class Meta:
         verbose_name = 'Влияние компонент'
         verbose_name_plural = 'Влияние компонент'
+
+    def as_json(self):
+        return dict(
+            id=self.id,
+            Component=self.Component,
+            DangerType=self.DangerType,
+            InfluenceLevel=self.InfluenceLevel,
+            Outcome=self.Outcome)
 
 
 class AirPollution(models.Model):
@@ -63,7 +85,7 @@ class AirPollution(models.Model):
     Location = models.CharField('Адрес', max_length=200)
     Parameter = models.TextField('Параметр')
     MonthlyAverage = models.FloatField('Абсолютное значение')
-    MonthlyAveragePDKss = models.CharField('ПДКсс', max_length=50)
+    MonthlyAveragePDKss = models.FloatField('ПДКсс')
     # PDK = models.ForeignKey(AirPDK, on_delete=models.CASCADE)
 
     class Meta:
@@ -81,7 +103,7 @@ class RelevantAirPollution(models.Model):
     LocationRel = models.CharField('Адрес', max_length=200)
     ParameterRel = models.TextField('Параметр')
     MonthlyAverageRel = models.FloatField('Абсолютное значение')
-    MonthlyAveragePDKssRel = models.CharField('ПДКсс', max_length=50)
+    MonthlyAveragePDKssRel = models.FloatField('ПДКсс')
     # PDKRel = models.ForeignKey(AirPDK, on_delete=models.CASCADE)
     # DistrictKeyRel = models.ForeignKey(AirDistricts, on_delete=models.CASCADE)
     # ComponentKeyRel = models.ForeignKey(AirComponentsInfluence, on_delete=models.CASCADE)
@@ -103,3 +125,31 @@ class RelevantAirPollution(models.Model):
             ParameterRel=self.ParameterRel,
             MonthlyAverageRel=self.MonthlyAverageRel,
             MonthlyAveragePDKssRel=self.MonthlyAveragePDKssRel)
+
+
+class SpringConditions(models.Model):
+    SpringName = models.CharField('Название родника', max_length=50)
+    AdmArea = models.CharField('Округ', max_length=100)
+    District = models.CharField('Район', max_length=100)
+    Location = models.TextField('Расположение')
+    Period = models.CharField('Дата измерения', max_length=20)
+    Condition = models.CharField('Состояние', max_length=200)
+    Longitude = models.FloatField('Долгота')
+    Latitude = models.FloatField('Широта')
+    # DistrictKey = models.ForeignKey(AirDistricts, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Состояние родников'
+        verbose_name_plural = 'Состояние родников'
+
+    def as_json(self):
+        return dict(
+            id=self.id,
+            SpringName=self.SpringName,
+            AdmArea=self.AdmArea,
+            District=self.District,
+            Location=self.Location,
+            Period=self.Period,
+            Condition=self.Condition,
+            Longitude=self.Longitude,
+            Latitude=self.Latitude)

@@ -1,0 +1,83 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Карты
+{% endblock %}
+
+{% block scr %}
+ <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://api-maps.yandex.ru/2.1/?apikey=8be5d99a-0f7a-49f3-b2e0-07b924f5521b&lang=ru_RU&coordorder=longlat" type="text/javascript">
+ </script>
+<script type="text/javascript">
+ymaps.ready(function() {
+    var map,
+        regionName = "Царицыно",
+        center = [38.943216, 45.033266],
+        zoom = 11;
+
+    map = new ymaps.Map('map', {
+        center: center,
+        zoom: zoom,
+        controls: []
+    });
+// 1. Запрашиваем через геокодер район (у Яндекса этой возможности пока нет, придется пользоваться OSM)
+    var url = "http://nominatim.openstreetmap.org/search";
+    $.getJSON(url, {q: regionName, format: "json", polygon_geojson: 1})
+        .then(function (data) {
+            $.each(data, function(ix, place) {
+                if ("relation" == place.osm_type) {
+// 2. Создаем полигон с нужными координатами
+                    var p = new ymaps.Polygon(place.geojson.coordinates);
+// 3. Добавляем полигон на карту
+                    map.geoObjects.add(p);
+                }
+            });
+        }, function (err) {
+            console.log(err);
+        });
+});
+
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="v50_12">
+    <div class="v6_11">
+        <div class="v8_119">
+            <div class="v8_88">
+                <div class="v8_89">
+                    <div class="v8_90"></div>
+                    <div class="v8_91"></div>
+                    <div class="v8_92"></div>
+                    <div class="v8_93">
+                        <div class="v8_94"></div></div>
+                    <div class="v8_95">
+                        <div class="v8_96"></div></div>
+                    <div class="v8_97">
+                        <div class="v8_98"></div></div>
+                    <div class="v8_99">
+                        <div class="v8_100"></div></div>
+                    <div class="v8_101">
+                        <div class="v8_102"></div></div>
+                    <div class="v8_103">
+                        <div class="v8_104"></div></div>
+                    <div class="v8_105">
+                        <div class="v8_106"></div></div>
+                    <div class="v8_107">
+                        <div class="v8_108"></div></div>
+                    <div class="v8_109">
+                        <div class="v8_110"></div></div>
+                    <div class="v8_111">
+                        <div class="v8_112"></div></div></div></div>
+            <span class="v8_118">EcoKarta</span></div>
+        <div class="v8_124">
+            <span class="v8_120">Главная</span>
+            <span class="v8_121" onclick="location.href='maps/';">Карта</span>
+            <span class="v8_122">О сервисе</span>
+            <span class="v8_123">Контакты</span></div>
+        </div></div>
+<div id="map" class="div1"></div>
+{% endblock %}
+
+
+

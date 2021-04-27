@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import AirPollution, AirPDK, RelevantAirPollution, AirComponentsInfluence, AirDistricts
+from .models import AirPollution, AirPDK, RelevantAirPollution, AirComponentsInfluence, AirDistricts, SpringConditions
 from import_export.admin import ImportExportModelAdmin
 from import_export.admin import ImportExportActionModelAdmin
 from import_export import resources
@@ -51,8 +51,18 @@ class AirDistrictsAdmin(ImportExportActionModelAdmin):
     resource_class = AirDistrictsResource
 
 
+class SpringConditionsResource(resources.ModelResource):
+    class Meta:
+        model = SpringConditions
+
+
+class SpringConditionsAdmin(ImportExportActionModelAdmin):
+    resource_class = SpringConditionsResource
+
+
 admin.site.register(AirPollution, AirPollutionAdmin)
 admin.site.register(AirPDK, AirPDKAdmin)
 admin.site.register(RelevantAirPollution, RelevantAirPollutionAdmin)
 admin.site.register(AirComponentsInfluence, AirComponentsInfluenceAdmin)
 admin.site.register(AirDistricts, AirDistrictsAdmin)
+admin.site.register(SpringConditions, SpringConditionsAdmin)
