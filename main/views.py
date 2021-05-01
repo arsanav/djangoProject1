@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import RelevantAirPollution, AirDistricts, AirPDK, AirComponentsInfluence, SpringConditions
+from .models import GroundPollutions, Districts
 from django.core import serializers
 
 
@@ -9,13 +10,16 @@ def master(request):
     air_pdk = serializers.serialize('json', AirPDK.objects.all())
     air_components_influence = serializers.serialize('json', AirComponentsInfluence.objects.all())
     spring_conditions = serializers.serialize('json', SpringConditions.objects.all())
+    ground_pollutions = serializers.serialize('json', GroundPollutions.objects.all())
     return render(request, 'main/master.html',
                   {'air_districts': air_districts,
                    'rel_air_pollutions': rel_air_pollutions,
                    'air_pdk': air_pdk,
                    'air_components_influence': air_components_influence,
-                   'spring_conditions': spring_conditions})
+                   'spring_conditions': spring_conditions,
+                   'ground_pollutions': ground_pollutions})
 
 
 def maps(request):
-    return render(request, 'main/maps.html')
+    districts = serializers.serialize('json', Districts.objects.all())
+    return render(request, 'main/maps.html', {'districts': districts})

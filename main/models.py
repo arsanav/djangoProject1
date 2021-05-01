@@ -32,22 +32,20 @@ class AirPDK(models.Model):
 class AirDistricts(models.Model):
     District = models.CharField('Район', max_length=100)
     Address = models.CharField('Адрес', max_length=500)
-    # Type = models.CharField('Критерий', max_length=50, default='Воздух')
     AirCharacteristic = models.CharField('Уровень влияния', max_length=50)
 
     def __str__(self):
         return self.Address
 
     class Meta:
-        verbose_name = 'Характеристика районов'
-        verbose_name_plural = 'Характеристика районов'
+        verbose_name = 'Станция контроля воздуха'
+        verbose_name_plural = 'Станции контроля воздуха по районам'
 
     def as_json(self):
         return dict(
             id=self.id,
             District=self.District,
             Address=self.Address,
-            Criterion = self.Criterion,
             AirCharacteristic=self.AirCharacteristic)
 
 
@@ -153,3 +151,45 @@ class SpringConditions(models.Model):
             Condition=self.Condition,
             Longitude=self.Longitude,
             Latitude=self.Latitude)
+
+
+class GroundPollutions(models.Model):
+    Year = models.CharField("Год измерения", max_length=5)
+    District = models.CharField('Район', max_length=100)
+    Address = models.CharField('Адрес', max_length=200)
+    EstimatedIndexValue = models.FloatField('Суммарный показатель загрязнения')
+    PollutionCategory = models.CharField('Категория загрязнения', max_length=50)
+    GeoData = models.JSONField('Геоданные')
+    # DistrictKey = models.ForeignKey(AirDistricts, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Загрязнение почвы'
+        verbose_name_plural = 'Загрязнение почвы'
+
+    def as_json(self):
+        return dict(
+            Year=self.Year,
+            District=self.District,
+            Address=self.Address,
+            EstimatedIndexValue=self.EstimatedIndexValue,
+            PollutionCategory=self.PollutionCategory,
+            GeoData=self.GeoData)
+
+
+class Districts(models.Model):
+    District = models.CharField('Район', max_length=100)
+    Characteristic = models.CharField('Общее состояние', max_length=50)
+
+    def __str__(self):
+        return self.District
+
+    class Meta:
+        verbose_name = 'Характеристика районов'
+        verbose_name_plural = 'Характеристики районов'
+
+    def as_json(self):
+        return dict(
+            id=self.id,
+            District=self.District,
+            AirCharacteristic=self.Characteristic)
+

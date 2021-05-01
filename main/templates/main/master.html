@@ -34,16 +34,18 @@
                 center: [55.76, 37.64],
                 zoom: 10
         });
-        var rap = "{{ rel_air_pollutions }}";
-        var rel_air_pollutions = JSON.parse(rap.replace(/&quot;/g,'"'));
-        var ad = "{{ air_districts }}";
-        var air_districts = JSON.parse(ad.replace(/&quot;/g,'"'));
-        var ap = "{{ air_pdk }}";
-        var air_pdk = JSON.parse(ap.replace(/&quot;/g,'"'));
-        var aci = "{{ air_components_influence }}";
-        var air_components_influence = JSON.parse(aci.replace(/&quot;/g,'"'));
-        var sc = "{{ spring_conditions }}";
-        var spring_conditions = JSON.parse(sc.replace(/&quot;/g,'"'));
+        var rap = "{{ rel_air_pollutions }}",
+            rel_air_pollutions = JSON.parse(rap.replace(/&quot;/g,'"')),
+            ad = "{{ air_districts }}",
+            air_districts = JSON.parse(ad.replace(/&quot;/g,'"')),
+            ap = "{{ air_pdk }}",
+            air_pdk = JSON.parse(ap.replace(/&quot;/g,'"')),
+            aci = "{{ air_components_influence }}",
+            air_components_influence = JSON.parse(aci.replace(/&quot;/g,'"')),
+            sc = "{{ spring_conditions }}",
+            spring_conditions = JSON.parse(sc.replace(/&quot;/g,'"')),
+            gp = "{{ ground_pollutions }}",
+            ground_pollutions = JSON.parse(gp.replace(/&quot;/g,'"'));
         for (let i = 0; i < 46; i++) {
              var geocoder = ymaps.geocode(air_districts[i]["fields"]["Address"]);
              geocoder.then(
@@ -65,7 +67,7 @@
                          scolor = "#008000";
                          bcontent = "Все показатели удовлетворяют ПДК и рекомендациям ВОЗ";
                      }
-                     var coordinates = res.geoObjects.get(0).geometry.getCoordinates();
+                     let coordinates = res.geoObjects.get(0).geometry.getCoordinates();
                      myMap.geoObjects.add(new ymaps.Circle([coordinates, 650], {
                          balloonContent: bcontent,
                          hintContent: air_districts[i]["fields"]["Address"]
@@ -110,6 +112,42 @@
                 // Ширина обводки в пикселях.
                 strokeWidth: 5
             }));
+
+        }
+        var myMap2 = new ymaps.Map('map2', {
+            center: [55.76, 37.64],
+            zoom: 10
+        });
+        for (let i = 0; i < 307; i++) {
+            var geocoder = ymaps.geocode(ground_pollutions[i]["fields"]["Address"]);
+             geocoder.then(
+                 function (res) {
+                     if (ground_pollutions[i]["fields"]["PollutionCategory"] == "умеренно-опасная") {
+                         fcolor = "#FFFF00";
+                         scolor = "#F0E68C";
+                     } else {
+                         fcolor = "#00FF7F";
+                         scolor = "#008000";
+                     }
+                     let coordinates = res.geoObjects.get(0).geometry.getCoordinates();
+                     myMap2.geoObjects.add(new ymaps.Circle([
+                         coordinates,
+                         650
+                     ], {
+                         balloonContent: ground_pollutions[i]["fields"]["PollutionCategory"],
+                         hintContent: ground_pollutions[i]["fields"]["Address"],
+                     }, {
+                         fillColor: fcolor,
+                         // Цвет обводки.
+                         strokeColor: scolor,
+                         // Прозрачность обводки.
+                         strokeOpacity: 0.8,
+                         // Ширина обводки в пикселях.
+                         strokeWidth: 5
+                     }));
+                 }
+             );
+
 
         }
 }
@@ -169,7 +207,7 @@
         </div></div>
 <div id="map" class="div1"></div>
 <div id="map1" class="div2"></div>
+<div id="map2" class="div3"></div>
 {% endblock %}
-
 
 

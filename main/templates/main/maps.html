@@ -11,8 +11,7 @@
 <script type="text/javascript">
 ymaps.ready(function() {
     var map,
-        regionName = "Царицыно",
-        center = [38.943216, 45.033266],
+        center = [37.64, 55.76],
         zoom = 11;
 
     map = new ymaps.Map('map', {
@@ -20,21 +19,25 @@ ymaps.ready(function() {
         zoom: zoom,
         controls: []
     });
-// 1. Запрашиваем через геокодер район (у Яндекса этой возможности пока нет, придется пользоваться OSM)
-    var url = "http://nominatim.openstreetmap.org/search";
-    $.getJSON(url, {q: regionName, format: "json", polygon_geojson: 1})
-        .then(function (data) {
-            $.each(data, function(ix, place) {
-                if ("relation" == place.osm_type) {
-// 2. Создаем полигон с нужными координатами
-                    var p = new ymaps.Polygon(place.geojson.coordinates);
-// 3. Добавляем полигон на карту
-                    map.geoObjects.add(p);
-                }
-            });
-        }, function (err) {
-            console.log(err);
-        });
+     var dis = "{{ districts }}",
+            districts = JSON.parse(dis.replace(/&quot;/g,'"'));
+    $.getJSON("http://127.0.0.1:8800/boundary-polygon-lvl8.geojson?static=1", function(json) {
+    for(let i = 0; i < 146; i++){
+        for(let j = 0; j < 146; j++) {
+            if (dis[j]["fields"]["District"] == json["features"][i]["NAME"]) {
+                var myPolygon = new ymaps.Polygon(
+                    json["features"][i]["geometry"]["coordinates"], {
+                        hintContent: dis[j]["fields"]["District"],
+                    }, {
+                        fillColor: '#00FF0088',
+                        strokeWidth: 5
+                    });
+            }
+        }
+    map.geoObjects.add(myPolygon);
+    }
+    });
+
 });
 
 </script>
