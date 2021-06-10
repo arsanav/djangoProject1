@@ -1,0 +1,66 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Карты
+{% endblock %}
+
+{% block scr %}
+{% endblock %}
+
+{% block content %}
+<div class="v50_11">
+    <div class="v6_11">
+        <div class="v8_119">
+            <div class="v8_88">
+                <div class="v8_89">
+                    <div class="v8_90"></div>
+                    <div class="v8_91"></div>
+                    <div class="v8_92"></div>
+                    <div class="v8_93">
+                        <div class="v8_94"></div></div>
+                    <div class="v8_95">
+                        <div class="v8_96"></div></div>
+                    <div class="v8_97">
+                        <div class="v8_98"></div></div>
+                    <div class="v8_99">
+                        <div class="v8_100"></div></div>
+                    <div class="v8_101">
+                        <div class="v8_102"></div></div>
+                    <div class="v8_103">
+                        <div class="v8_104"></div></div>
+                    <div class="v8_105">
+                        <div class="v8_106"></div></div>
+                    <div class="v8_107">
+                        <div class="v8_108"></div></div>
+                    <div class="v8_109">
+                        <div class="v8_110"></div></div>
+                    <div class="v8_111">
+                        <div class="v8_112"></div></div></div></div>
+            <span class="v8_118">EcoKarta</span></div>
+        <div class="v8_124">
+            <span class="v8_120" onclick="location.href='http://127.0.0.1:8000/'">Главная</span>
+            <span class="v8_121" onclick="location.href='http://127.0.0.1:8000/maps/'">Карта районов</span>
+            <span class="v8_123" onclick="location.href='http://127.0.0.1:8000/co'">Оксид углерода</span>
+            <span class="v8_999" onclick="location.href='http://127.0.0.1:8000/climat'">Климат</span></div>
+        <div class="v8_126">
+            <span class="v7_9">Прогноз содержания CO</span>
+            <span class="v7_10">Моделирует значение содержания CO в воздухе в следующем месяце</span>
+            <div class="v8_127">
+                <div class="v8_9">
+                    <div class="v7_15"></div>
+                    <span class="v7_16" onclick="location.href='#map'">Хочу знать!</span></div></div></div>
+        <div class="v8_176">
+            <div class="v8_147">
+                </div>
+            <div class="v8_152"></div>
+            <div class="v8_155">
+                <div class="v8_156"></div>
+                <div class="v8_157"></div></div></div>
+        <div class="v8_133"></div>
+        </div></div>
+<div class = 'div11' id = "map"><span class="vt">Район Новокосино</span></div>
+<div class = 'div22'><span class="vt">Текущее содержание: {{ current }} мг/м3</span></div>
+<div class = 'div33'><span class="vr">Прогнозируемое содержание в следующем месяце: {{ next1 }} мг/м3</span></div>
+<div class = 'div1'>
+    <img src="http://127.0.0.1:8800/ig.png"></div>
+{% endblock %}

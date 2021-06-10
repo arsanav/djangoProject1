@@ -357,19 +357,7 @@ body {
   color: rgba(0,0,0,1);
   position: absolute;
   top: 0px;
-  left: 184px;
-  font-family: Montserrat;
-  font-weight: bold;
-  font-size: 23px;
-  opacity: 1;
-  text-align: left;
-}
-.v8_122 {
-  width: 204px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 0px;
-  left: 368px;
+  left: 154px;
   font-family: Montserrat;
   font-weight: bold;
   font-size: 23px;
@@ -381,7 +369,19 @@ body {
   color: rgba(0,0,0,1);
   position: absolute;
   top: 0px;
-  left: 552px;
+  left: 395px;
+  font-family: Montserrat;
+  font-weight: bold;
+  font-size: 23px;
+  opacity: 1;
+  text-align: left;
+}
+.v8_999 {
+  width: 204px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 0px;
+  left: 650px;
   font-family: Montserrat;
   font-weight: bold;
   font-size: 23px;
@@ -417,6 +417,18 @@ body {
   color: rgba(0,0,0,1);
   position: absolute;
   top: 179px;
+  left: 0px;
+  font-family: Montserrat;
+  font-weight: bold;
+  font-size: 35px;
+  opacity: 1;
+  text-align: left;
+}
+.v7_111 {
+  width: 546px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 130px;
   left: 0px;
   font-family: Montserrat;
   font-weight: bold;
@@ -745,29 +757,254 @@ body {
   border: 1px solid rgba(0,0,0,1);
 }
 .div1{
-  width: 100%;
+  width: 33.2%;
   height: 600px;
+  opacity: 1;
+  position: absolute;
+  top: 1124px;
+  left: 0px;
+  overflow: hidden;
+  display: table;
+  border: 4px solid rgba(144,249,196,1);
+}
+.div1010101{
+  width: 60%;
+  height: 600px;
+  opacity: 1;
+  position: absolute;
+  top: 1124px;
+  left: 0px;
+  overflow: hidden;
+  display: table;
+  border: 4px solid rgba(144,249,196,1);
+}
+.div111{
+  width: 50%;
+  height: 200px;
+  opacity: 1;
+  position: absolute;
+  top: 1224px;
+  left: 0px;
+  overflow: hidden;
+  display: table;
+  border: 4px solid rgba(144,249,196,1);
+}
+.div222{
+  width: 50%;
+  height: 200px;
+  opacity: 1;
+  position: absolute;
+  top: 1224px;
+  left: 50%;
+  overflow: hidden;
+  display: table;
+  border: 4px solid rgba(144,249,196,1);
+}
+.div2{
+  width: 34%;
+  height: 600px;
+  opacity: 1;
+  position: absolute;
+  top: 1124px;
+  left: 33%;
+  overflow: hidden;
+  display: table;
+  border: 4px solid rgba(144,249,196,1);
+}
+.div3{
+  width: 33%;
+  height: 600px;
+  opacity: 1;
+  position: absolute;
+  top: 1124px;
+  left: 67%;
+  overflow: hidden;
+  display: table;
+  border: 4px solid rgba(144,249,196,1);
+}
+.div11{
+  width: 33.2%;
+  height: 100px;
   opacity: 1;
   position: absolute;
   top: 1024px;
   left: 0px;
   overflow: hidden;
+  display: table;
+  border: 4px solid rgba(144,249,196,1);
+  background: linear-gradient( rgba(144,249,196,1), rgba(223,255,205,1));
 }
-.div2{
-  width: 100%;
-  height: 600px;
+.div1000 {
+  width: 50%;
+  height: 100px;
   opacity: 1;
   position: absolute;
-  top: 1624px;
+  top: 1024px;
   left: 0px;
   overflow: hidden;
+  display: table;
+  border: 4px solid rgba(144,249,196,1);
+  background: linear-gradient( rgba(144,249,196,1), rgba(223,255,205,1));
 }
-.div3{
-  width: 100%;
-  height: 600px;
+.div2000 {
+  width: 50%;
+  height: 100px;
   opacity: 1;
   position: absolute;
-  top: 2224px;
+  top: 1024px;
+  left: 50%;
+  overflow: hidden;
+  display: table;
+  border: 4px solid rgba(144,249,196,1);
+  background: linear-gradient( rgba(144,249,196,1), rgba(223,255,205,1));
+}
+.div1100 {
+  width: 50%;
+  height: 100px;
+  opacity: 1;
+  position: absolute;
+  top: 1124px;
   left: 0px;
   overflow: hidden;
+  display: table;
+  border: 4px solid rgba(144,249,196,1);
+  background: linear-gradient( rgba(144,249,196,1), rgba(223,255,205,1));
+}
+.div2200 {
+  width: 50%;
+  height: 100px;
+  opacity: 1;
+  position: absolute;
+  top: 1124px;
+  left: 50%;
+  overflow: hidden;
+  display: table;
+  border: 4px solid rgba(144,249,196,1);
+  background: linear-gradient( rgba(144,249,196,1), rgba(223,255,205,1));
+}
+.div22{
+  width: 34%;
+  height: 100px;
+  opacity: 1;
+  position: absolute;
+  top: 1024px;
+  left: 33%;
+  overflow: hidden;
+  display: table;
+  border: 4px solid rgba(144,249,196,1);
+  background: linear-gradient( rgba(144,249,196,1), rgba(223,255,205,1));
+}
+.div33{
+  width: 33%;
+  height: 100px;
+  opacity: 1;
+  position: absolute;
+  top: 1024px;
+  left: 67%;
+  overflow: hidden;
+  display: table;
+  border: 4px solid rgba(144,249,196,1);
+  background: linear-gradient( rgba(144,249,196,1), rgba(223,255,205,1));
+}
+.vt {
+  color: rgba(0,0,0,1);
+  position: absolute;
+  font-family: Montserrat;
+  font-weight: bold;
+  font-size: 30px;
+  opacity: 1;
+  text-align: center;
+}
+.vt1 {
+  color: rgba(0,0,0,1);
+  position: absolute;
+  font-family: Montserrat;
+  font-weight: bold;
+  font-size: 18px;
+  opacity: 1;
+  text-align: center;
+}
+.vr {
+  color: rgba(0,0,0,1);
+  position: absolute;
+  font-family: Montserrat;
+  font-weight: bold;
+  font-size: 25px;
+  opacity: 1;
+  text-align: center;
+}
+.div10{
+  width: 100%;
+  height: 900px;
+  opacity: 1;
+  position: absolute;
+  top: 1024px;
+  left: 0px;
+  overflow: hidden;
+  border: 4px solid rgba(144,249,196,1);
+}
+
+/* Custom dropdown */
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 50px; /* demo only */
+  width:300px;
+}
+
+.custom-dropdown select {
+  cursor:pointer;
+  background-color: rgba(144,249,196,1);
+  color: #fff;
+  font-size: inherit;
+  padding: .5em;
+  padding-right: 2.5em;
+  border: 0;
+  margin: 0;
+  border-radius: 3px;
+  text-indent: 0.01px;
+  text-overflow: '';
+  -webkit-appearance: button; /* hide default arrow in chrome OSX */
+}
+
+.custom-dropdown::before,
+.custom-dropdown::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.custom-dropdown::after { /*  Custom dropdown arrow */
+  content: "\25BC";
+  height: 1em;
+  font-size: .625em;
+  line-height: 1;
+  right: 1.2em;
+  top: 50%;
+  margin-top: -.5em;
+}
+
+.custom-dropdown::before { /*  Custom dropdown arrow cover */
+  width: 2em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+.custom-dropdown select[disabled] {
+  color: rgba(0,0,0,.3);
+}
+
+.custom-dropdown select[disabled]::after {
+  color: rgba(0,0,0,.1);
+}
+
+.custom-dropdown::before {
+  background-color: rgba(144,249,196,1);
+}
+
+.custom-dropdown::after {
+  color:  rgba(144,249,196,1);
 }
